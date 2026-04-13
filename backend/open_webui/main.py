@@ -98,6 +98,15 @@ from open_webui.routers import (
     scim,
     terminals,
 )
+from open_webui.routers.notebooks.routers import (
+    notebooks,
+    chat,
+    search,
+    sources,
+    notes as notebook_notes,
+    podcasts,
+    insights,
+)
 
 from open_webui.routers.retrieval import (
     get_embedding_function,
@@ -1522,6 +1531,15 @@ if ENABLE_ADMIN_ANALYTICS:
     app.include_router(analytics.router, prefix='/api/v1/analytics', tags=['analytics'])
 app.include_router(utils.router, prefix='/api/v1/utils', tags=['utils'])
 app.include_router(terminals.router, prefix='/api/v1/terminals', tags=['terminals'])
+
+# Open Notebook integration - Research features
+app.include_router(notebooks.router, prefix='/api/v1/notebooks', tags=['notebooks'])
+app.include_router(chat.router, prefix='/api/v1/notebooks/chat', tags=['notebook-chat'])
+app.include_router(search.router, prefix='/api/v1/notebooks/search', tags=['notebook-search'])
+app.include_router(sources.router, prefix='/api/v1/notebooks/sources', tags=['notebook-sources'])
+app.include_router(notebook_notes.router, prefix='/api/v1/notebooks/notes', tags=['notebook-notes'])
+app.include_router(podcasts.router, prefix='/api/v1/notebooks/podcasts', tags=['notebook-podcasts'])
+app.include_router(insights.router, prefix='/api/v1/notebooks/insights', tags=['notebook-insights'])
 
 # SCIM 2.0 API for identity management
 if ENABLE_SCIM:
